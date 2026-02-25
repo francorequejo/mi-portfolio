@@ -561,3 +561,67 @@ body.lang-en .es, body.lang-en .fr { display: none !important; } /* <-- ¡Esta e
 .timeline .t-item:last-child .dot {
   z-index: 2 !important; /* Asegura que la foto quede arriba del parche */
 }
+
+/* 1. AJUSTE PERFECTO DE ESPACIOS (SOBRE MÍ - CELULAR) */
+@media (max-width: 900px) {
+  /* Espacio exacto para que el ícono no toque el texto (35px, no 95px) */
+  .pc-orbit-system {
+    margin-bottom: 35px !important; 
+  }
+  
+  /* Sube tu nombre y la foto más cerca del título */
+  .about-left {
+    margin-top: 5px !important;
+  }
+
+  /* Acerca muchísimo el texto descriptivo ("Licenciado en...") a tu mail */
+  .about-two-col {
+    gap: 15px !important; 
+  }
+  
+  .about-name, .about-email {
+    position: relative;
+    z-index: 10; 
+  }
+}
+
+/* ========================================= */
+/* SOLUCIÓN MATEMÁTICA (RECORRIDO Y ÓRBITA)  */
+/* ========================================= */
+
+/* 1. SEPARAMOS LA ÓRBITA DEL TEXTO EN CELULARES */
+@media (max-width: 900px) {
+  .pc-orbit-system {
+    /* Le damos casi 100px de aire abajo para que los íconos giren libres */
+    margin-bottom: 95px !important; 
+  }
+  .about-name, .about-email {
+    position: relative;
+    z-index: 10; /* Asegura que el texto siempre quede por encima */
+  }
+}
+
+/* 2. MATAMOS LA LÍNEA GIGANTE VIEJA */
+#recorrido .timeline::before {
+  display: none !important;
+}
+
+/* 3. DIBUJAMOS LÍNEAS EXACTAS (EXCEPTO EN SANTA PAULA) */
+.timeline .t-item {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Esta regla le dice: "Dibuja una línea en todos, MENOS en el último" */
+.timeline .t-item:not(:last-child)::before {
+  content: "" !important;
+  position: absolute !important;
+  /* Centramos la línea perfecto con la bolita */
+  left: calc(var(--dotLeft) + (var(--dotSize) / 2) - (var(--lineW) / 2)) !important;
+  top: calc(var(--dotSize) / 2) !important;
+  /* La fórmula que calcula la distancia exacta hasta la siguiente bolita */
+  height: calc(100% + 42px) !important; 
+  width: var(--lineW) !important;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,.7) 6px, transparent 6px, transparent 12px) !important;
+  z-index: -1 !important; 
+}
