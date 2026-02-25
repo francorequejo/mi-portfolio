@@ -166,9 +166,10 @@ main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superi
 #recorrido .timeline::before{ content: ""; position: absolute; left: calc(var(--padLeft) + var(--dotLeft) + (var(--dotSize) / 2) - (var(--lineW) / 2)); top: calc(var(--dotSize) / 2); bottom: calc(var(--dotSize) / 2); width: var(--lineW); background: repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,.7) 6px, transparent 6px, transparent 12px); }
 .dot{ position:absolute; left: var(--dotLeft); top: 0px; width: var(--dotSize); height: var(--dotSize); border-radius: 999px; background: #fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .dot img{ width:100%; height:100%; object-fit: contain; padding: 10px; }
-.t-content h4{ margin:0; font-size:18px; letter-spacing:.6px }
-.t-content h4 span{ color:rgba(255,255,255,.65); font-weight:600 }
-.t-content p{ margin:10px 0 0; color:rgba(255,255,255,.75); line-height:1.6 }
+.t-content h4 { margin:0; font-size:18px; letter-spacing:.6px; color: #ffffff !important; }
+/* Le decimos que SOLO agarre el span que NO tiene clase (el del año) */
+.t-content h4 span:not([class]) { color:#ffffff !important; font-weight:700 !important; }
+.t-content p { margin:10px 0 0; color:rgba(255,255,255,.75); line-height:1.6 }
 
 .reveal{ opacity:0; transform: translateY(18px); transition: .7s ease; }
 .reveal.show{ opacity:1; transform: translateY(0); }
@@ -300,4 +301,263 @@ body.entered main.wrap { opacity: 1; transform: translateY(0); clip-path: inset(
   .modal-grid { grid-template-columns: 1fr; gap: 24px; }
   .modal-right { border-left: 0; padding-left: 0; max-height: 50vh; display: flex; flex-direction: column; }
   .modal-right video:nth-child(even), .modal-right img:nth-child(even), .modal-right iframe:nth-child(even) { margin-top: 0; }
+}
+/* Animación de flotación para las tarjetas */
+.floating-card {
+  animation: float 6s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.floating-card:hover {
+  animation-play-state: paused;
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Grilla de trabajos */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* Filtros */
+.filter-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.filter-btn {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.filter-btn:hover { background: rgba(255,255,255,0.2); }
+.filter-panel {
+  display: none; /* Se oculta por defecto */
+  background: rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.filter-panel.hidden { display: none; }
+
+/* Cambios en el Modal */
+.modal-title {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+.modal-tags-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+.modal-tag-btn {
+  background: transparent;
+  border: 1px solid var(--theme-color, #419c91);
+  color: var(--theme-color, #419c91);
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.modal-tag-btn.active {
+  background: var(--theme-color, #419c91);
+  /* Usamos otra variable para el texto, para que no quede blanco sobre blanco */
+  color: var(--tag-text-color, #000); 
+}
+.modal-desc {
+  max-height: 40vh; /* Tope de altura */
+  overflow-y: auto; /* Scroll interno si el texto es largo */
+  padding-right: 10px;
+  text-align: justify;
+}
+
+/* Asegura que el botón y el nombre estén por encima de los puntitos */
+.intro-inner {
+  position: relative;
+  z-index: 10000; /* Un número bien alto */
+}
+
+/* Ajuste opcional para el botón */
+.intro-btn {
+  /* Si querés que el botón tenga un fondo sólido para tapar los puntos */
+  background-color: var(--bg-color); 
+  /* O podés dejarlo transparente si te gusta que se vean a través */
+}
+
+/* ========================================= */
+/* SISTEMA MULTILINGÜE Y BOTONES INTRO       */
+/* ========================================= */
+.intro-buttons {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  z-index: 10000;
+}
+
+/* Ocultar los idiomas que no están activos */
+body.lang-es .fr, body.lang-es .en { display: none !important; }
+body.lang-fr .es, body.lang-fr .en { display: none !important; }
+body.lang-en .es, body.lang-en .fr { display: none !important; } /* <-- ¡Esta es la línea que faltaba! */
+
+/* ========================================= */
+/* PARCHE MOBILE DEFINITIVO V3               */
+/* ========================================= */
+
+/* 1. Tarjetas al 100% para no dejar huecos a la derecha */
+.vcard { 
+  width: 100% !important; 
+}
+
+@media (max-width: 900px) {
+  /* 2. Nav Bar: 3 bloques perfectos y simétricos */
+  .nav { 
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important; 
+    padding: 6px !important; 
+    gap: 4px !important; 
+  }
+  /* Dividimos la barra exactamente en 3 tercios iguales (33.3%) */
+  .nav > .nav-group, 
+  .nav > a.pill.nav-link, 
+  .nav > a.pill.cta {
+    flex: 1 1 0 !important; 
+    min-width: 0 !important; /* Clave para que ningún botón aplaste al otro */
+    margin: 0 !important;
+    display: flex !important;
+  }
+  /* Centramos el texto dentro de cada pastilla y ajustamos tamaño */
+  .nav .pill {
+    flex: 1 !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 13px !important; 
+    padding: 10px 0 !important; 
+    letter-spacing: -0.3px !important; 
+    white-space: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    display: flex !important;
+  }
+  .nav > a.pill.cta {
+    border-radius: 20px !important;
+  }
+
+  /* 3. Separar Título "Sobre mí" de tu nombre */
+  .about-left { 
+    margin-top: 25px !important; 
+  }
+  .section-header { 
+    margin-bottom: 35px !important; 
+  }
+
+  /* 4. Alinear Recorrido al borde de la pantalla */
+  #recorrido { 
+    --dotSize: 56px !important; 
+    --dotLeft: -65px !important; 
+    --padLeft: 65px !important; 
+  }
+
+  /* 5. Grilla: Una sola columna */
+  .portfolio-grid { 
+    grid-template-columns: 1fr !important; 
+    gap: 20px !important;
+  }
+  .vcard { 
+    height: 220px !important; 
+  }
+
+  /* 6. Arreglar Modal en celulares para que no sea gigante */
+  .modal { 
+    padding: 15px !important; 
+  }
+  .modal-card { 
+    padding: 45px 20px 20px !important; 
+    max-height: 85vh !important; 
+    overflow: hidden !important; 
+  }
+  .modal-x { 
+    top: 10px !important; 
+    right: 10px !important; 
+    width: 36px !important; 
+    height: 36px !important; 
+    background: #111 !important; 
+    z-index: 9999 !important;
+  }
+  .modal-grid { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 20px !important; 
+    max-height: calc(85vh - 65px) !important; 
+    overflow-y: auto !important; 
+    padding-right: 5px !important; 
+  }
+  .modal-right { 
+    max-height: none !important; 
+    overflow: visible !important; 
+  }
+  
+  /* 7. Cortina de animación adaptada al celular */
+  .nav-curtain { 
+    width: 100% !important; 
+    left: 0 !important; 
+  }
+}
+
+/* 8. Recorrido: Cortar la línea blanca exactamente en Santa Paula */
+/* Lo hacemos colgando una línea negra del último circulito, sin tocar los textos */
+.t-item:last-child .dot::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Arranca exactamente donde termina el logo de Santa Paula */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px; /* Ancho suficiente para tapar la línea blanca */
+  height: 1000px; /* Se estira al infinito hacia abajo tapando lo que sobre */
+  background: #000; /* Fondo negro que camufla */
+  z-index: 10;
+}
+
+/* ========================================= */
+/* ELIMINADOR DE LÍNEA FANTASMA SANTA PAULA  */
+/* ========================================= */
+.timeline .t-item:last-child {
+  position: relative !important; 
+}
+
+.timeline .t-item:last-child::before {
+  content: "" !important;
+  position: absolute !important;
+  /* El parche empieza exactamente donde termina la foto */
+  top: var(--dotSize) !important; 
+  bottom: -100px !important; /* Se estira hacia abajo tapando la línea */
+  /* Se alinea perfecto con el centro de la línea de puntos */
+  left: calc(var(--dotLeft) + (var(--dotSize) / 2) - 10px) !important;
+  width: 20px !important;
+  background: #000 !important; /* Parche negro puro */
+  z-index: 0 !important;
+}
+
+.timeline .t-item:last-child .dot {
+  z-index: 2 !important; /* Asegura que la foto quede arriba del parche */
 }
