@@ -4,10 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Portfolio - Franco Requejo</title>
-  <link rel="stylesheet" href="style.css?v=3"/>
+  <link rel="stylesheet" href="style.css?v=15"/>
 </head>
 
 <body class="lang-es">
+
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button">✕</button>
+  <div class="lightbox-content">
+    <img id="lightbox-img" src="" alt="Galería ampliada">
+    <video id="lightbox-video" controls autoplay muted loop playsinline></video>
+  </div>
+  <button class="lightbox-prev" type="button">&#10094;</button>
+  <button class="lightbox-next" type="button">&#10095;</button>
+</div>
 
 <div class="modal" id="projectModal" aria-hidden="true">
   <div class="modal-backdrop" data-close="1"></div>
@@ -79,8 +89,7 @@
         </h2>
       </div>
       <div class="about-two-col reveal">
-        <div class="about-left">
-          <div class="photo-box pc-orbit-system">
+        <div class="about-left" style="margin-top: 20px;"> <div class="photo-box pc-orbit-system">
             <img class="photo-circle" src="assets/foto.jpg" alt="Franco Requejo">
             <div class="orbit-container">
               <div class="orbit-wrapper pos-1"><a href="https://www.instagram.com/francorequejo" target="_blank" class="social-icon-link"><img src="assets/instagram.png" alt="Instagram"></a></div>
@@ -94,24 +103,24 @@
         </div>
         <div class="about-text">
           <p>
-            <span class="es">Licenciado en Comunicación Digital y maestrando en Ciencia Política.</span>
-            <span class="fr">Licencié en Communication Numérique et étudiant en master de Science Politique.</span>
-            <span class="en">Degree in Digital Communication and Master's student in Political Science.</span>
+            <span class="es"><strong>Diseñador Multimedial</strong>, Licenciado en Comunicación Digital y maestrando en Ciencia Política.</span>
+            <span class="fr"><strong>Designer Multimédia</strong>, diplômé en Communication Numérique et étudiant en master de Science Politique.</span>
+            <span class="en"><strong>Multimedia Designer</strong>, with a Degree in Digital Communication and a Master's student in Political Science.</span>
           </p>
           <p>
-            <span class="es">Trabajo en la intersección entre el análisis político, la cultura digital y la narrativa audiovisual. Me especializo en edición de video para redes, storytelling y síntesis informativa. Combino mirada crítica, sensibilidad estética y estrategia comunicacional.</span>
-            <span class="fr">Je travaille à l'intersection de l'analyse politique, de la culture numérique et de la narration audiovisuelle. Je me spécialise dans le montage vidéo pour les réseaux sociaux, le storytelling et la synthèse d'informations. Je combine esprit critique, sensibilité esthétique et stratégie de communication.</span>
-            <span class="en">I work at the intersection of political analysis, digital culture, and audiovisual storytelling. I specialize in video editing for social media, storytelling, and information synthesis. I combine critical thinking, aesthetic sensitivity, and communication strategy.</span>
+            <span class="es">Mi trabajo se desarrolla en la intersección estratégica entre el análisis político, la cultura digital y la <strong>narrativa audiovisual</strong>. Me especializo en edición de video avanzada, storytelling y síntesis informativa, combinando herramientas de última generación e inteligencia artificial para potenciar el impacto visual.</span>
+            <span class="fr">Mon travail se situe à l'intersection stratégique de l'analyse politique, de la culture numérique et de la <strong>narration audiovisuelle</strong>. Je me spécialise dans le montage vidéo avancé, le storytelling et la synthèse d'informations, en combinant des outils de dernière génération et l'intelligence artificielle pour booster l'impact visuel.</span>
+            <span class="en">My work thrives at the strategic intersection of political analysis, digital culture, and <strong>audiovisual storytelling</strong>. I specialize in advanced video editing, storytelling, and information synthesis, combining latest-generation tools and artificial intelligence to enhance visual impact.</span>
           </p>
           <p>
-            <span class="es">He desarrollado comunidades digitales de más de 30.000 seguidores, explorando formatos breves y lenguajes contemporáneos.</span>
-            <span class="fr">J'ai développé des communautés numériques de plus de 30 000 abonnés, en explorant des formats courts et des langages contemporains.</span>
-            <span class="en">I have developed digital communities of over 30,000 followers, exploring short formats and contemporary languages.</span>
+            <span class="es">He desarrollado comunidades de más de 30.000 seguidores, explorando formatos breves y lenguajes contemporáneos. Entiendo el diseño y la comunicación como herramientas fundamentales de poder e influencia.</span>
+            <span class="fr">J'ai développé des communautés de plus de 30 000 abonnés, en explorant des formats courts et des langages contemporains. Je conçois le design et la communication comme des outils fondamentaux de pouvoir et d'influence.</span>
+            <span class="en">I have built communities of over 30,000 followers, exploring short formats and contemporary languages. I view design and communication as fundamental tools for power and influence.</span>
           </p>
           <p>
-            <span class="es">Escribo, edito y pienso la comunicación como herramienta de poder.<br>Bilingüe en francés, con inglés avanzado.</span>
-            <span class="fr">J'écris, je monte et je conçois la communication comme un outil de pouvoir.<br>Bilingue en français, avec un anglais avancé.</span>
-            <span class="en">I write, edit, and think of communication as a tool of power.<br>Bilingual in French, with advanced English.</span>
+            <span class="es">Escribo, edito y diseño bajo una mirada crítica y estética. <br>Bilingüe en francés, con inglés avanzado.</span>
+            <span class="fr">J'écris, je monte et je conçois sous un regard critique et esthétique. <br>Bilingue en français, avec un anglais avancé.</span>
+            <span class="en">I write, edit, and design with a critical and aesthetic lens. <br>Bilingual in French, with advanced English.</span>
           </p>
           <p class="about-highlight">
             <span class="es">Entre la política, la estética y la palabra.</span>
@@ -127,12 +136,10 @@
         <h2 class="h2">
           <span class="es">Software</span><span class="fr">Logiciels</span><span class="en">Software</span>
         </h2>
-        <button class="toggle-btn" type="button">
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <button class="toggle-btn active" type="button"> <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
       </div>
-      <div class="toggle-content">
-        <div class="toggle-inner">
+      <div class="toggle-content open"> <div class="toggle-inner">
           <div class="soft-box full">
             <div class="dashed">
               <div class="icons">
@@ -152,12 +159,10 @@
         <h2 class="h2">
           <span class="es">Recorrido</span><span class="fr">Parcours</span><span class="en">Experience</span>
         </h2>
-        <button class="toggle-btn" type="button">
-          <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        <button class="toggle-btn active" type="button"> <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </button>
       </div>
-      <div class="toggle-content">
-        <div class="toggle-inner">
+      <div class="toggle-content open"> <div class="toggle-inner">
           <div class="timeline">
             <div class="t-item reveal"><div class="dot"><img src="assets/upwork.png" alt="Upwork" /></div><div class="t-content"><h4>UpWork - Freelance <span> | 2026</span></h4><p><span class="es">Edición de shorts/reels, subtitulado, pacing, B-roll, adaptación por plataforma, entregas rápidas y organización por proyectos.</span><span class="fr">Montage de shorts/reels, sous-titrage, rythme (pacing), B-roll, adaptation par plateforme, livraisons rapides et organisation par projets.</span><span class="en">Shorts/reels editing, subtitling, pacing, B-roll, platform adaptation, fast deliveries, and project organization.</span></p></div></div>
             <div class="t-item reveal"><div class="dot"><img src="assets/convocacion.png" alt="Convocación por San Isidro" /></div><div class="t-content"><h4>Convocación por San Isidro <span> | 2025</span></h4><p><span class="es">Desarrollo y ejecución de campañas de comunicación política. Producción integral de contenidos.</span><span class="fr">Développement et exécution de campagnes de communication politique. Production intégrale de contenus.</span><span class="en">Development and execution of political communication campaigns. Comprehensive content production.</span></p></div></div>
@@ -171,169 +176,6 @@
     </section>
   </div>
 
-  <div id="view-portfolio" class="view-page">
-    <section class="section">
-      
-      <div class="section-header reveal filter-header">
-        <h2 class="h2">
-          <span class="es">Todos</span><span class="fr">Tous</span><span class="en">All</span>
-        </h2>
-        <button class="filter-btn" id="toggleFilters">
-          <span class="es">Filtros</span><span class="fr">Filtres</span><span class="en">Filters</span> ⚙️
-        </button>
-      </div>
-
-      <div class="filter-panel hidden" id="filterPanel">
-        <label><input type="checkbox" value="edicion" class="filter-chk"> <span class="es">Edición de Video</span><span class="fr">Montage Vidéo</span><span class="en">Video Editing</span></label>
-        <label><input type="checkbox" value="marketing" class="filter-chk"> <span class="es">Marketing Digital</span><span class="fr">Marketing Digital</span><span class="en">Digital Marketing</span></label>
-        <label><input type="checkbox" value="diseno" class="filter-chk"> <span class="es">Diseño Digital</span><span class="fr">Design Numérique</span><span class="en">Digital Design</span></label>
-        <label><input type="checkbox" value="copywriting" class="filter-chk"> <span class="es">Copywriting</span><span class="fr">Conception-rédaction</span><span class="en">Copywriting</span></label>
-        <label><input type="checkbox" value="escritos" class="filter-chk"> <span class="es">Escritos</span><span class="fr">Écrits</span><span class="en">Writings</span></label>
-      </div>
-
-      <div class="portfolio-grid" id="portfolioGrid">
-
-        <div class="vcard floating-card" 
-             style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.3);"
-             data-color="#ffffff"
-             data-tags="edicion" 
-             data-title-es="UpWork - Freelance" data-title-fr="UpWork - Freelance" data-title-en="UpWork - Freelance"
-             data-desc-es="Trabajé como editor de video freelance en Upwork, colaborando con clientes internacionales. Edité contenido de mentoría de negocios en inglés y videos de desarrollo personal y autoayuda en francés, utilizando un estilo narrativo apoyado en B-roll cinematográfico.<br><br>Mi trabajo incluye la creación de subtítulos animados, cortes dinámicos y un diseño sonoro (música y SFX) que marca el ritmo y mantiene la retención del espectador, asegurando siempre que el resultado final se adapte a las necesidades, el tono y la visión de cada cliente." 
-             data-desc-fr="J'ai travaillé comme monteur vidéo freelance sur Upwork, en collaborant avec des clients internationaux. J'ai monté des contenus de mentorat d'affaires en anglais et des vidéos de développement personnel en français, en utilisant un style narratif appuyé par des séquences B-roll cinématographiques.<br><br>Mon travail comprend la création de sous-titres animés, des coupes dynamiques et un design sonore (musique et SFX) qui marque le rythme et maintient l'attention du spectateur, en veillant toujours à ce que le résultat final soit adapté aux besoins, au ton et à la vision de chaque client."
-             data-desc-en="I worked as a freelance video editor on Upwork, collaborating with international clients. I edited business mentoring content in English and personal development videos in French, using a narrative style supported by cinematic B-roll.<br><br>My work includes creating animated subtitles, dynamic cuts, and sound design (music and SFX) that sets the pace and maintains viewer retention, always ensuring the final result adapts to the needs, tone, and vision of each client."
-             data-edicion="assets/upwork/upwork1.mp4,assets/upwork/upwork2.mp4,assets/upwork/upwork3.mp4">
-          <img class="vcard-img" src="assets/upwork/upworklogo.jpg" alt="UpWork">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">UpWork</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(4, 115, 151, 0.15); border: 1px solid rgba(4, 115, 151, 0.4);"
-             data-color="#047397"
-             data-tags="edicion,marketing,diseno" 
-             data-title-es="Convocación por San Isidro" data-title-fr="Convocación por San Isidro" data-title-en="Convocación por San Isidro"
-             data-desc-es="En Convocación, formé parte del equipo de comunicación digital, participando en todas las etapas de producción de contenidos políticos para redes sociales. Propuse ideas creativas, coordiné rodajes, dirigí a voceros frente a cámara (tono, lenguaje corporal y énfasis), edité videos y diseñé piezas gráficas como portadas, carruseles e historias.<br><br>Además, gestioné las redes sociales del partido (Facebook, Instagram, Twitter/X, TikTok y LinkedIn): publiqué contenidos, interactué con la comunidad y mantuve actualizado el calendario editorial. También cubrí actividades políticas, vecinales y legislativas, generando material audiovisual y narrativas con enfoque territorial.<br><br>Dado que se trataba de contenidos políticos y municipales, originalmente percibidos como poco atractivos para audiencias digitales, el desafío principal fue volverlos claros, dinámicos y entretenidos. En ese contexto, se destacó especialmente mi creatividad para adaptar mensajes complejos a formatos accesibles, alineados con las lógicas de consumo en redes sociales." 
-             data-desc-fr="Au sein de Convocación, j'ai fait partie de l'équipe de communication numérique, participant à toutes les étapes de production de contenus politiques pour les réseaux sociaux. J'ai proposé des idées créatives, coordonné des tournages, dirigé des porte-paroles face caméra (ton, langage corporel et emphase), monté des vidéos et conçu des visuels tels que des couvertures, des carrousels et des stories.<br><br>De plus, j'ai géré les réseaux sociaux du parti (Facebook, Instagram, Twitter/X, TikTok et LinkedIn) : publication de contenus, interaction avec la communauté et mise à jour du calendrier éditorial. J'ai également couvert des activités politiques, locales et législatives, en produisant du matériel audiovisuel et des récits avec une approche territoriale.<br><br>S'agissant de contenus politiques et municipaux, initialement perçus comme peu attrayants pour les publics numériques, le défi principal a été de les rendre clairs, dynamiques et divertissants. Dans ce contexte, ma créativité s'est particulièrement démarquée pour adapter des messages complexes à des formats accessibles, alignés sur les logiques de consommation des réseaux sociaux."
-             data-desc-en="At Convocación, I was part of the digital communication team, participating in all stages of producing political content for social networks. I proposed creative ideas, coordinated shoots, directed spokespersons on camera (tone, body language, and emphasis), edited videos, and designed graphics such as covers, carousels, and stories.<br><br>Additionally, I managed the party's social media (Facebook, Instagram, Twitter/X, TikTok, and LinkedIn): publishing content, interacting with the community, and maintaining the editorial calendar. I also covered political, neighborhood, and legislative activities, generating audiovisual material and narratives with a territorial focus.<br><br>Given that it was political and municipal content, originally perceived as unappealing to digital audiences, the main challenge was to make it clear, dynamic, and entertaining. In that context, my creativity stood out especially in adapting complex messages to accessible formats, aligned with social media consumption logic."
-             data-edicion="assets/convocacion/convocacion1.mp4,assets/convocacion/convocacion2.mp4,assets/convocacion/convocacion3.mp4"
-             data-marketing="assets/convocacion/convocacionmd1.png,assets/convocacion/convocacionmd2.png"
-             data-diseno="assets/convocacion/convocacionmd1.png">
-          <img class="vcard-img" src="assets/convocacion/convocacionlogo.png" alt="Convocación">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">Convocación</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(8, 171, 172, 0.15); border: 1px solid rgba(8, 171, 172, 0.4);"
-             data-color="#08abac"
-             data-tags="marketing,diseno,copywriting" 
-             data-title-es="Mazalán Comunicaciones" data-title-fr="Mazalán Comunicaciones" data-title-en="Mazalán Comunicaciones"
-             data-desc-es="En mi rol dentro de Mazalan Comunicaciones, fui responsable de la gestión y ejecución de la estrategia digital para Syngenta Chile. Desempeñé funciones clave como Community Manager, incluyendo la creación de contenido multimedial, calendarización, copywriting y social listening.<br><br>Además, coordiné y dirigí la producción de piezas gráficas y videos, asegurando que cada diseño cumpliera con la identidad visual y los objetivos de comunicación de la marca. Aunque no editaba directamente muchos de los diseños, brindaba instrucciones y supervisión creativa al equipo de diseño para garantizar la calidad y coherencia del contenido." 
-             data-desc-fr="Dans mon rôle chez Mazalan Comunicaciones, j'ai été responsable de la gestion et de l'exécution de la stratégie numérique pour Syngenta Chili. J'ai occupé des fonctions clés telles que Community Manager, incluant la création de contenu multimédia, la planification, la conception-rédaction et l'écoute sociale.<br><br>De plus, j'ai coordonné et dirigé la production de pièces graphiques et de vidéos, en m'assurant que chaque design respectait l'identité visuelle et les objectifs de communication de la marque. Bien que je ne montais pas directement beaucoup de designs, je donnais des instructions et une supervision créative à l'équipe de design pour garantir la qualité et la cohérence du contenu."
-             data-desc-en="In my role at Mazalan Comunicaciones, I was responsible for managing and executing the digital strategy for Syngenta Chile. I held key roles such as Community Manager, including multimedia content creation, scheduling, copywriting, and social listening.<br><br>Furthermore, I coordinated and directed the production of graphics and videos, ensuring each design met the brand's visual identity and communication objectives. Although I didn't directly edit many of the designs, I provided instructions and creative supervision to the design team to ensure content quality and consistency."
-             data-marketing="assets/mazalan/mazalan1.png,assets/mazalan/mazalan2.mp4,assets/mazalan/mazalan3.mov,assets/mazalan/mazalan4.png"
-             data-diseno="assets/mazalan/mazalan1.png"
-             data-copywriting="assets/mazalan/mazalan4.png">
-          <img class="vcard-img" src="assets/mazalan/mazalanlogo.jpg" alt="Mazalán">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">Mazalán</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(247, 146, 38, 0.15); border: 1px solid rgba(247, 146, 38, 0.4);"
-             data-color="#f79226"
-             data-tags="edicion" 
-             data-title-es="Asoc. Civil Gregorio Mendel (SSA)" data-title-fr="Assoc. Civile Gregorio Mendel (SSA)" data-title-en="Gregorio Mendel Civil Assoc. (SSA)"
-             data-desc-es="El Servicio Social Agustiniano (SSA) fue creado en el año 2004 por la Orden de San Agustín con el fin de que los peques del barrio de Balvanera (CABA) puedan contar con un espacio educativo, recreativo y de contención.<br><br>Ayudé con la elaboración de una campaña interna por los 20 años de la asociación, donde realicé y edité entrevistas a madres de niños que asisten al servicio." 
-             data-desc-fr="Le Service Social Augustinien (SSA) a été créé en 2004 par l'Ordre de Saint Augustin afin que les enfants du quartier de Balvanera (CABA) puissent bénéficier d'un espace éducatif, récréatif et de soutien.<br><br>J'ai participé à l'élaboration d'une campagne interne pour les 20 ans de l'association, où j'ai réalisé et monté des interviews de mères d'enfants fréquentant le service."
-             data-desc-en="The Augustinian Social Service (SSA) was created in 2004 by the Order of St. Augustine so that children in the Balvanera neighborhood (CABA) could have an educational, recreational, and support space.<br><br>I assisted with the development of an internal campaign for the association's 20th anniversary, where I filmed and edited interviews with mothers of children attending the service."
-             data-edicion="assets/serviciosocialagustiniano/serviciosocialagustiniano1.mp4,assets/serviciosocialagustiniano/serviciosocialagustiniano2.mp4">
-          <img class="vcard-img" src="assets/serviciosocialagustiniano/serviciosocialagustinianologo.jpg" alt="Gregorio Mendel">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">Gregorio Mendel</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(75, 151, 193, 0.15); border: 1px solid rgba(75, 151, 193, 0.4);"
-             data-color="#4b97c1"
-             data-tags="marketing,diseno,copywriting" 
-             data-title-es="Observatorio de Deuda Social (ODSA)" data-title-fr="Observatoire de la Dette Sociale (ODSA)" data-title-en="Social Debt Observatory (ODSA)"
-             data-desc-es="En el ODSA, mi rol fue transformar los datos de las investigaciones en contenidos accesibles para el público. Me encargué del diseño integral de piezas gráficas con sus respectivos copys, asegurando una comunicación clara y efectiva.<br><br>Además, gestioné todas las redes sociales del Observatorio, planificando y calendarizando contenidos, y supervisé la organización de prensa. También cubrí eventos clave en los que participaba el ODSA, generando material audiovisual y reportes en tiempo real." 
-             data-desc-fr="À l'ODSA, mon rôle était de transformer les données de recherche en contenus accessibles au public. J'ai été chargé de la conception intégrale des pièces graphiques et de leurs textes, assurant une communication claire et efficace.<br><br>De plus, j'ai géré tous les réseaux sociaux de l'Observatoire, en planifiant les contenus, et j'ai supervisé l'organisation avec la presse. J'ai également couvert des événements clés, en produisant du matériel audiovisuel et des rapports en temps réel."
-             data-desc-en="At ODSA, my role was to transform research data into accessible content for the public. I handled the comprehensive design of graphics and their copy, ensuring clear and effective communication.<br><br>Additionally, I managed all of the Observatory's social networks, planning content, and supervised press organization. I also covered key events, generating audiovisual material and real-time reports."
-             data-marketing="assets/odsa/odsa1.png,assets/odsa/odsa2.png,assets/odsa/odsa3.png,assets/odsa/odsa4.png,assets/odsa/odsa5.png,assets/odsa/odsa6.mp4"
-             data-diseno="assets/odsa/odsa1.png,assets/odsa/odsa2.png"
-             data-copywriting="assets/odsa/odsa3.png">
-          <img class="vcard-img" src="assets/odsa/odsalogo.jpg" alt="ODSA">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">ODSA</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.3);"
-             data-color="#ffffff"
-             data-tags="marketing,diseno,copywriting" 
-             data-title-es="Centro Médico Santa Paula" data-title-fr="Centre Médical Santa Paula" data-title-en="Santa Paula Medical Center"
-             data-desc-es="En Santa Paula, me desempeñé como Social Media Manager, gestionando la creación y planificación de contenidos. Diseñé una gran cantidad de flyers, carteles y piezas audiovisuales, aprovechando mi manejo avanzado de Adobe Illustrator y Canva para lograr materiales visualmente atractivos y efectivos.<br><br>Además, edité y produje videos, asegurando una comunicación dinámica y alineada con la identidad de la marca." 
-             data-desc-fr="Chez Santa Paula, j'ai travaillé en tant que Social Media Manager, gérant la création et la planification des contenus. J'ai conçu de nombreux flyers, affiches et pièces audiovisuelles, en tirant parti de ma maîtrise avancée d'Adobe Illustrator et de Canva.<br><br>De plus, j'ai monté et produit des vidéos, garantissant une communication dynamique alignée sur l'identité de la marque."
-             data-desc-en="At Santa Paula, I worked as a Social Media Manager, handling content creation and planning. I designed numerous flyers, posters, and audiovisual pieces, leveraging my advanced skills in Adobe Illustrator and Canva.<br><br>Additionally, I edited and produced videos, ensuring dynamic communication aligned with the brand's identity."
-             data-marketing="assets/santapaula/santapaula1.png,assets/santapaula/santapaula2.png,assets/santapaula/santapaula3.png"
-             data-diseno="assets/santapaula/santapaula1.png"
-             data-copywriting="assets/santapaula/santapaula2.png">
-          <img class="vcard-img" src="assets/santapaula/santapaulalogo.jpg" alt="Santa Paula">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">Santa Paula</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(4, 115, 151, 0.15); border: 1px solid rgba(4, 115, 151, 0.4);"
-             data-color="#047397"
-             data-tags="edicion" 
-             data-title-es="UGC + Personal" data-title-fr="UGC + Personnel" data-title-en="UGC + Personal"
-             data-desc-es="En 2022, comencé a convertir mis poemas en videos, que compartí en mi cuenta de TikTok, donde ya tenía 25.000 seguidores tras haber creado contenido humorístico previamente. Uno de estos videos alcanzó más de 300.000 visualizaciones y 100.000 'me gusta', logrando una gran conexión con la audiencia.<br><br>También produje un video biográfico humorístico de Elton John como ejercicio de trabajo, destacando la coordinación musical y el uso de imágenes del artista para reforzar la narrativa. Por otro lado, generé un contenido UGC para @dupermat. Era un video sobre los anteojos anti-mareo para una pyme, combinando información con humor en un formato dinámico que captara la atención del público." 
-             data-desc-fr="En 2022, j'ai commencé à transformer mes poèmes en vidéos, que j'ai partagées sur mon compte TikTok, où j'avais déjà 25 000 abonnés après avoir créé du contenu humoristique. L'une de ces vidéos a atteint plus de 300 000 vues et 100 000 'j'aime', créant une forte connexion avec le public.<br><br>J'ai également produit une vidéo biographique humoristique sur Elton John comme exercice, en soulignant la coordination musicale et l'utilisation d'images de l'artiste pour renforcer la narration. D'autre part, j'ai généré du contenu UGC pour @dupermat. C'était une vidéo sur des lunettes anti-mal de mer pour une PME, combinant information et humour dans un format dynamique pour capter l'attention."
-             data-desc-en="In 2022, I started turning my poems into videos, which I shared on my TikTok account, where I already had 25,000 followers after previously creating humorous content. One of these videos reached over 300,000 views and 100,000 likes, achieving a great connection with the audience.<br><br>I also produced a humorous biographical video about Elton John as a work exercise, highlighting musical coordination and the use of the artist's images to reinforce the narrative. On the other hand, I created UGC content for @dupermat. It was a video about anti-motion sickness glasses for an SME, combining information with humor in a dynamic format to capture the audience's attention."
-             data-edicion="assets/ugc/ugc1.mp4,assets/ugc/ugc2.mp4,assets/ugc/ugc3.mp4,assets/ugc/ugc4.mp4">
-          <video class="vcard-img" poster="assets/ugc/ugc.png" autoplay loop muted playsinline disablePictureInPicture><source src="assets/ugc/ugclogo.mp4" type="video/mp4"></video>            
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">UGC + Personal</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(65, 156, 145, 0.15); border: 1px solid rgba(65, 156, 145, 0.4);"
-             data-color="#419c91"
-             data-tags="edicion,diseno" 
-             data-title-es="Podcast: Cine, Rock y Rosca" data-title-fr="Podcast: Cinéma, Rock et Rosca" data-title-en="Podcast: Cinema, Rock and Rosca"
-             data-desc-es="Participé en la elaboración, producción, edición y postproducción de Cine, Rock y Rosca, un podcast que combinaba cine, música y análisis político, pensado para ampliar audiencias digitales a través de una estrategia de clipping en redes sociales. Mi rol incluyó la edición integral de los primeros cuatro episodios y la producción de clips audiovisuales para su difusión. El proyecto buscaba traducir contenidos políticos a un formato más accesible y cultural.<br><br>El podcast fue realizado con recursos mínimos, utilizando celulares para la grabación y en un espacio reducido, lo que implicó resolver desafíos técnicos. La edición se realizó en Adobe Premiere, trabajando con la herramienta de edición multicámara, y combinando procesos manuales y herramientas basadas en IA para la mejora y limpieza del sonido, que presentaba importantes problemas de ruido y claridad en la grabación original.<br><br>La edición involucró diseño de texto en pantalla, selección e integración de imágenes, corrección de audio, corrección de color y optimización del formato para consumo en redes sociales. También participé en la creación de las miniaturas." 
-             data-desc-fr="J'ai participé à l'élaboration, la production, le montage et la post-production de 'Cine, Rock y Rosca', un podcast combinant cinéma, musique et analyse politique, conçu pour élargir l'audience numérique via une stratégie de clips sur les réseaux sociaux. Mon rôle a inclus le montage intégral des quatre premiers épisodes et la production de clips audiovisuels pour leur diffusion. Le projet visait à traduire des contenus politiques dans un format plus accessible et culturel.<br><br>Le podcast a été réalisé avec des ressources minimales, en utilisant des téléphones pour l'enregistrement et dans un espace réduit, ce qui a impliqué de résoudre des défis techniques. Le montage a été réalisé sur Adobe Premiere, en utilisant l'outil multicaméra, et en combinant des processus manuels et des outils basés sur l'IA pour l'amélioration et le nettoyage du son, qui présentait d'importants problèmes de bruit et de clarté.<br><br>Le montage a impliqué la conception de texte à l'écran, la sélection et l'intégration d'images, la correction audio, l'étalonnage et l'optimisation du format pour les réseaux sociaux. J'ai également participé à la création des miniatures."
-             data-desc-en="I participated in the development, production, editing, and post-production of 'Cine, Rock y Rosca', a podcast combining cinema, music, and political analysis, designed to expand digital audiences through a social media clipping strategy. My role included the full editing of the first four episodes and the production of audiovisual clips for distribution. The project sought to translate political content into a more accessible and cultural format.<br><br>The podcast was produced with minimal resources, using smartphones for recording in a small space, which involved solving technical challenges. Editing was done in Adobe Premiere, working with the multicamera tool, and combining manual processes and AI-based tools for sound enhancement and cleaning, as the original recording had significant noise and clarity issues.<br><br>The editing involved on-screen text design, image selection and integration, audio correction, color correction, and format optimization for social media consumption. I also participated in creating the thumbnails."
-             data-edicion="assets/podcast/podcast1.mp4,assets/podcast/podcast2.mp4,https://www.youtube.com/watch?v=m6sVtAC7QWs"
-             data-diseno="assets/podcast/podcas1.jpg,assets/podcast/podcast2.jpg,assets/podcast/horizontal.webp">
-          <img class="vcard-img" src="assets/podcast/podcastlogo.jpg" alt="Podcast">
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title">Podcast</div></div>
-        </div>
-
-        <div class="vcard floating-card" 
-             style="background: rgba(65, 156, 145, 0.15); border: 1px solid rgba(65, 156, 145, 0.4);"
-             data-color="#419c91"
-             data-tags="escritos" 
-             data-title-es="Escritos Políticos" data-title-fr="Écrits Politiques" data-title-en="Political Writings"
-             data-desc-es="Esta sección se encuentra en desarrollo. Muy pronto vas a poder leer mis artículos y análisis sobre política, comunicación y estética." 
-             data-desc-fr="Cette section est en cours de développement. Vous pourrez très bientôt lire mes articles et analyses sur la politique, la communication et l'esthétique."
-             data-desc-en="This section is under development. Very soon you will be able to read my articles and analysis on politics, communication, and aesthetics."
-             data-escritos="">
-          <div class="vcard-img" style="background: #111; display:flex; align-items:center; justify-content:center; color: #419c91; font-size: 3rem;">✍️</div>
-          <div class="vcard-overlay"></div>
-          <div class="vcard-text"><div class="vcard-title"><span class="es">Escritos</span><span class="fr">Écrits</span><span class="en">Writings</span></div></div>
-        </div>
-
-      </div>
-    </section>
-  </div>
-
-</main>
-
-<script src="script.js?v=3"></script>
+<script src="script.js?v=15"></script>
 </body>
 </html>

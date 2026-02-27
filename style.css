@@ -28,18 +28,11 @@ body{
 
 .wrap{max-width:var(--wrap); margin:0 auto; padding:0 20px;}
 
-/* ======================================================= */
-/* VISTAS DE PÁGINA (SISTEMA SPA) - SOLUCIÓN PARPADEO      */
-/* ======================================================= */
 .view-page { display: none; }
 .view-page.active { display: block; }
 
-/* ======================================================= */
-/* NAV BAR Y LA CORTINA (EL TRUCO DEL RELEVO)              */
-/* ======================================================= */
 .nav-sticky { position: sticky; top: 14px; z-index: 999; }
 
-/* 1. EL ESTADO NORMAL DE LA BARRA */
 .nav { 
   position: relative; 
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 10px; padding: 10px; z-index: 1000; 
@@ -47,11 +40,10 @@ body{
   border: 1px solid rgba(255, 255, 255, 0.2); 
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  border-radius: 30px; /* Usamos 30px fijos para que nunca haga el efecto "círculo" al estirarse */
+  border-radius: 30px; 
   transition: background 0.1s, backdrop-filter 0.1s, border-color 0.1s, box-shadow 0.1s;
 }
 
-/* 2. EL TRUCO: Al bajar la cortina, apagamos la barra para que no se sumen los colores */
 body.transitioning .nav {
   background: transparent;
   backdrop-filter: none; -webkit-backdrop-filter: none;
@@ -59,7 +51,6 @@ body.transitioning .nav {
   box-shadow: none;
 }
 
-/* 3. LA CORTINA ORIGINAL */
 .nav-curtain {
   position: absolute;
   top: 0; left: 0; right: 0; 
@@ -69,16 +60,13 @@ body.transitioning .nav {
   border: 1px solid rgba(255,255,255,0.2); 
   border-radius: 30px;
   z-index: -1; pointer-events: none; opacity: 0;
-  /* CAMBIO: Al subir, la altura tarda 0.6s. La opacidad ESPERA 0.4s y se va suavecito al final */
   transition: height 0.6s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.2s ease 0.4s;
 }
 
-/* 4. LA ANIMACIÓN DE CAÍDA */
 body.transitioning .nav-curtain {
   opacity: 1; 
   height: 100vh; 
   box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-  /* CAMBIO: Al bajar, se vuelve opaca al instante (0s de espera) */
   transition: height 0.6s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.1s ease 0s;
 }
 
@@ -90,9 +78,8 @@ body.transitioning .nav-curtain {
 .pill:hover { color: #000; background: rgba(0, 0, 0, 0.08); }
 .pill.cta { background: #000; color: #fff; font-weight: 700; }
 
-/* MENÚS DESPLEGABLES (CON PUENTE INVISIBLE SEGURO) */
 .nav-group { position: relative; display: inline-block; }
-.nav-group::after { content: ""; position: absolute; top: 100%; left: -20px; right: -20px; height: 30px; z-index: 1; } /* Puente anti-caída del mouse */
+.nav-group::after { content: ""; position: absolute; top: 100%; left: -20px; right: -20px; height: 30px; z-index: 1; }
 
 .nav-dropdown {
   position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%);
@@ -105,42 +92,14 @@ body.transitioning .nav-curtain {
 .nav-dropdown a { color: #222; text-decoration: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 600; white-space: nowrap; transition: 0.2s; }
 .nav-dropdown a:hover { background: rgba(0,0,0,0.06); color: #000; }
 
-/* ========================================= */
-/* ===== ESPACIOS Y TÍTULOS GLOBALES ======= */
-/* ========================================= */
-main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superior */
+main.wrap { padding-top: 80px; }
 
-.section { 
-  /* CAMBIO AQUÍ: Bajamos de 30px a 10px el espaciado vertical */
-  padding: 10px 0; 
-  scroll-margin-top: 120px; 
-}
+.section { padding: 10px 0; scroll-margin-top: 120px; }
 
-/* TÍTULOS Y FLECHITAS CENTRADOS JUNTOS */
-.section-header { 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  gap: 12px; 
-  /* CAMBIO AQUÍ: Bajamos de 20px a 10px el espacio debajo del título */
-  margin-bottom: 10px; 
-}
+.section-header { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 10px; }
+.section-header .h2 { margin: 0; font-size: clamp(24px, 4vw, 36px); font-weight: 300; letter-spacing: -0.5px; }
 
-.section-header .h2 { 
-  margin: 0; 
-  font-size: clamp(24px, 4vw, 36px); 
-  font-weight: 300; 
-  letter-spacing: -0.5px; 
-}
-
-/* BOTÓN DE FLECHA (Acompaña al texto) */
-.toggle-btn { 
-  position: relative; 
-  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); 
-  color: #fff; border-radius: 50%; width: 40px; height: 40px; 
-  display: flex; align-items: center; justify-content: center; 
-  cursor: pointer; transition: 0.3s ease; flex-shrink: 0; 
-}
+.toggle-btn { position: relative; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s ease; flex-shrink: 0; }
 .toggle-btn:hover { background: rgba(255, 255, 255, 0.15); transform: scale(1.05); }
 .toggle-btn svg { transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.2, 1); }
 .toggle-btn.active svg { transform: rotate(180deg); }
@@ -150,9 +109,6 @@ main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superi
 .toggle-inner { overflow: hidden; min-height: 0; }
 .toggle-inner > div { padding-top: 16px; padding-bottom: 24px; }
 
-/* ========================================= */
-/* ===== CONTENIDOS ======================== */
-/* ========================================= */
 .panel{ border:1px solid var(--border); background: rgba(255,255,255,.05); border-radius:26px; padding:18px; color:rgba(255,255,255,.8); line-height:1.6; max-width: 760px; width: 100%; }
 .soft-box{ border:1px solid var(--border); background: rgba(255,255,255,.05); border-radius:26px; padding:18px; }
 .soft-box.full{ grid-column:1 / -1 }
@@ -160,31 +116,40 @@ main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superi
 .icons{ display:flex; flex-wrap:wrap; gap:10px; }
 .icon{ border:1px solid rgba(255,255,255,.10); background: rgba(0,0,0,.30); padding:10px 12px; border-radius:16px; font-size:14px; color:rgba(255,255,255,.85); }
 
-/* RECORRIDO TIMELINE */
 #recorrido{ --dotSize: 86px; --dotLeft: -98px; --padLeft: 98px; --lineW: 3px; }
 #recorrido .timeline{ position: relative; margin-top: 8px; max-width: 980px; margin-left: auto; margin-right: auto; padding-left: var(--padLeft); display:flex; flex-direction:column; gap: 42px; padding-bottom: 30px; }
-#recorrido .timeline::before{ content: ""; position: absolute; left: calc(var(--padLeft) + var(--dotLeft) + (var(--dotSize) / 2) - (var(--lineW) / 2)); top: calc(var(--dotSize) / 2); bottom: calc(var(--dotSize) / 2); width: var(--lineW); background: repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,.7) 6px, transparent 6px, transparent 12px); }
+
+.t-item { position: relative !important; z-index: 1 !important; }
+.timeline .t-item:not(:last-child)::before {
+  content: "" !important; position: absolute !important;
+  left: calc(var(--dotLeft) + (var(--dotSize) / 2) - (var(--lineW) / 2)) !important;
+  top: calc(var(--dotSize) / 2) !important; height: calc(100% + 42px) !important; width: var(--lineW) !important;
+  background: repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,.7) 6px, transparent 6px, transparent 12px) !important; z-index: -1 !important; 
+}
+
 .dot{ position:absolute; left: var(--dotLeft); top: 0px; width: var(--dotSize); height: var(--dotSize); border-radius: 999px; background: #fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
 .dot img{ width:100%; height:100%; object-fit: contain; padding: 10px; }
 .t-content h4 { margin:0; font-size:18px; letter-spacing:.6px; color: #ffffff !important; }
-/* Le decimos que SOLO agarre el span que NO tiene clase (el del año) */
 .t-content h4 span:not([class]) { color:#ffffff !important; font-weight:700 !important; }
 .t-content p { margin:10px 0 0; color:rgba(255,255,255,.75); line-height:1.6 }
 
 .reveal{ opacity:0; transform: translateY(18px); transition: .7s ease; }
 .reveal.show{ opacity:1; transform: translateY(0); }
 
-/* ABOUT ME */
 .about-two-col { display: grid; grid-template-columns: 420px 1fr; gap: 40px; align-items: flex-start; max-width: 1000px; margin: 0 auto; }
-.about-left { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: -20px; }
-.pc-orbit-system { margin: 0 auto 16px auto !important; }
+.about-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px; /* Cambiamos de -20px a 20px para que baje y se alinee con el texto */
+}.pc-orbit-system { margin: 0 auto 16px auto !important; }
 .about-name { font-weight: 300; font-size: clamp(32px, 5vw, 48px); letter-spacing: -1px; margin: 0 0 4px 0; color: rgba(255, 255, 255, 0.95); }
 .about-email { font-size: 14px; color: rgba(255, 255, 255, 0.5); letter-spacing: 0.5px; }
 .about-text { text-align: left; font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); margin-top: 24px; }
 .about-text p { margin-bottom: 20px; }
 .about-highlight { font-style: italic; font-weight: 500; color: #fff; margin-top: 32px; }
 
-/* ÓRBITA */
 .pc-orbit-system { position: relative; width: 340px; height: 340px; display: flex; justify-content: center; align-items: center; }
 .pc-orbit-system .photo-circle { position: relative; z-index: 2; width: 240px !important; height: 240px !important; flex-shrink: 0; margin: 0; border-radius: 50%; object-fit: cover; object-position: 50% 18%; border: 3px solid rgba(255,255,255,.15); box-shadow: 0 20px 60px rgba(0,0,0,.6); }
 .orbit-container { position: absolute; inset: 0; z-index: 5; pointer-events: none; animation: spin-right 25s linear infinite; }
@@ -199,35 +164,16 @@ main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superi
 @keyframes spin-right { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes spin-left { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
 
-/* CAROUSEL Y TARJETAS */
-.carousel { overflow: hidden; border-radius: 26px; padding: 8px 0; }
-.track { display:flex; gap: 18px; width: max-content; animation: marquee 26s linear infinite; }
-.marketing-track { animation: marquee-reverse 26s linear infinite; }
-.carousel:hover .track { animation-play-state: paused; }
-@keyframes marquee{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
-@keyframes marquee-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-
 .vcard{ width: 320px; height: 220px; border: 1px solid rgba(255,255,255,.12); border-radius: 26px; overflow: hidden; position: relative; background: rgba(255,255,255,.05); box-shadow: 0 20px 60px rgba(0,0,0,.35); cursor: pointer; padding: 0; }
 .vcard-img { width: 100%; height: 100%; object-fit: cover; display: block; position: absolute; inset: 0; transition: .25s ease; z-index: 0; pointer-events: none; }
 .vcard-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.18); transition: .25s ease; z-index: 1; }
 .vcard-text { position: absolute; left: 16px; right: 16px; bottom: 14px; opacity: 0; transform: translateY(10px); transition: .25s ease; z-index: 2; }
 .vcard-title{ font-weight: 800; letter-spacing: .3px; }
-.vcard-mini{ margin-top: 4px; font-size: 13px; color: rgba(255,255,255,.75); }
 .vcard:hover{ transform: translateY(-10px); }
 .vcard:hover .vcard-overlay{ background: rgba(0,0,0,.48); }
 .vcard:hover .vcard-text{ opacity: 1; transform: translateY(0); }
 
-/* TARJETAS CON ZÓCALO */
-.vcard.mk-card { height: 250px; display: flex; flex-direction: column; justify-content: flex-end; }
-.vcard.mk-card .vcard-img { position: relative; height: 150px; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-.vcard.mk-card .card-bottom { flex-grow: 1; background: rgba(0, 0, 0, 0.2); display: flex; align-items: center; justify-content: space-between; padding: 18px; z-index: 2; position: relative; }
-.card-bottom h3 { margin:0; font-size:16px; line-height:1.2; color:rgba(255,255,255,.9); text-align:left; }
-.tag { font-size:11px; font-weight:800; padding:6px 10px; border-radius:999px; letter-spacing:.5px; }
-.blue { background:rgba(2,132,199,.9) }
-.amber { background:rgba(245,158,11,.9); color:#000 }
-.green { background:rgba(16,185,129,.9) }
-
-/* MODAL */
+/* MODAL Y PINTEREST GRID */
 .modal { position: fixed; inset: 0; z-index: 2000; padding: 20px; display: flex; align-items: center; justify-content: center; visibility: hidden; pointer-events: none; transition: visibility 0.5s ease; }
 .modal.show { visibility: visible; pointer-events: auto; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.70); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); opacity: 0; transition: opacity 0.4s ease; }
@@ -238,26 +184,97 @@ main.wrap { padding-top: 80px; } /* Despega el primer título de la barra superi
 .modal-x:hover { background: #333; transform: scale(1.1); }
 .modal-grid { display: grid; grid-template-columns: 400px 1fr; gap: 32px; }
 .modal-left { display: flex; flex-direction: column; justify-content: center; }
-.modal-avatar { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,.15); box-shadow: 0 16px 50px rgba(0,0,0,.45); margin-bottom: 16px; }
-.modal-title { margin: 0 0 12px; font-size: 28px; line-height: 1.2; }
-.modal-desc { margin: 0; color: rgba(255,255,255,.85); line-height: 1.6; font-size: 15px; }
-.modal-left > *, .modal-right video, .modal-right img, .modal-right iframe { opacity: 0; transform: translateY(15px); transition: transform 0.4s ease, opacity 0.4s ease; }
-.modal.show .modal-left > *, .modal.show .modal-right video, .modal.show .modal-right img, .modal.show .modal-right iframe { opacity: 1; transform: translateY(0); }
+.modal-title { margin: 0 0 12px; font-size: 28px; line-height: 1.2; text-align: center; }
+.modal-desc { margin: 0; color: rgba(255,255,255,.85); line-height: 1.6; font-size: 15px; max-height: 40vh; overflow-y: auto; padding-right: 10px; text-align: justify; }
+
+.modal-left > *, .modal-right > video, .modal-right > img, .modal-right > iframe, .modal-carousel-wrapper { opacity: 0; transform: translateY(15px); transition: transform 0.4s ease, opacity 0.4s ease; }
+.modal.show .modal-left > *, .modal.show .modal-right > video, .modal.show .modal-right > img, .modal.show .modal-right > iframe, .modal.show .modal-carousel-wrapper { opacity: 1; transform: translateY(0); }
 .modal.show .modal-left > :nth-child(1) { transition-delay: 0.1s; }
 .modal.show .modal-left > :nth-child(2) { transition-delay: 0.2s; }
 .modal.show .modal-left > :nth-child(3) { transition-delay: 0.3s; }
-.modal-right { border-left: 1px solid rgba(255,255,255,.10); padding-left: 32px; max-height: 70vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; -ms-overflow-style: none; scrollbar-width: none; }
-.modal-right::-webkit-scrollbar { display: none; }
-.modal-right video, .modal-right img, .modal-right iframe { width: 100%; border-radius: 18px; background:#000; border: 1px solid rgba(255,255,255,.10); object-fit: cover; }
-.modal-right iframe { aspect-ratio: 16 / 9; }
-.modal-right video:nth-child(even), .modal-right img:nth-child(even), .modal-right iframe:nth-child(even) { margin-top: 40px; }
-.modal-right .horizontal-media { grid-column: 1 / -1; margin-top: 20px !important; background: transparent; }
 
-/* INTRO ANIMACIÓN ESCÁNER */
+/* ========================================= */
+/* GRID NORMAL CON ESPACIO NORMAL            */
+/* ========================================= */
+.modal-right { 
+  border-left: 1px solid rgba(255,255,255,.10); 
+  padding-left: 32px; 
+  max-height: 70vh; 
+  overflow-y: auto; 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 16px !important; /* Espacio estándar para las fotos sueltas */
+  align-items: start; 
+  -ms-overflow-style: none; 
+  scrollbar-width: none; 
+}
+.modal-right::-webkit-scrollbar { display: none; }
+.modal-right > video, .modal-right > img, .modal-right > iframe { width: 100%; border-radius: 18px; background:#000; border: 1px solid rgba(255,255,255,.10); object-fit: cover; }
+.modal-right iframe { aspect-ratio: 16 / 9; }
+.modal-right > video:nth-child(even), .modal-right > img:nth-child(even), .modal-right > iframe:nth-child(even) { margin-top: 40px; }
+
+/* YouTube ocupa todo el ancho */
+.modal-right .horizontal-media { grid-column: 1 / -1 !important; margin-top: 20px !important; width: 100% !important; height: auto !important; display: block !important; }
+
+/* ========================================= */
+/* SECCIÓN COPYWRITING: NORMAL Y SIN GRID    */
+/* ========================================= */
+.modal-right.tag-copywriting {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 40px !important; /* Separación recta y prolija */
+  padding-bottom: 40px;
+}
+.modal-right.tag-copywriting > img,
+.modal-right.tag-copywriting > video {
+  margin-top: 0 !important; /* Matamos el efecto escalonado de Pinterest */
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important; /* Para que no recorte los textos largos */
+  background: transparent !important;
+  border: none !important;
+}
+
+/* ========================================= */
+/* CARRUSELES BLINDADOS (ESTÉTICOS)          */
+/* ========================================= */
+.modal-carousel-wrapper {
+  overflow: hidden; width: 100%; background: rgba(0,0,0,0.3); border-radius: 18px; padding: 10px 0;
+  margin-top: 0 !important; 
+  margin-bottom: 0 !important; /* Le sacamos los márgenes gigantes para que solo actúe la grilla */
+}
+.modal-carousel-wrapper .track {
+  display: block !important; 
+  white-space: nowrap !important;
+  width: fit-content !important; 
+}
+.track { animation: marquee 30s linear infinite; }
+.marketing-track { animation: marquee-reverse 30s linear infinite; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marquee-reverse { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+/* ========================================= */
+/* GALERÍA AMPLIADA (LIGHTBOX)               */
+/* ========================================= */
+.lightbox { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.4s ease; }
+.lightbox.active { opacity: 1; visibility: visible; }
+.lightbox-content { position: relative; max-width: 90%; max-height: 90%; display: flex; align-items: center; justify-content: center; transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.3); }
+.lightbox.active .lightbox-content { transform: scale(1); }
+.lightbox-content img, .lightbox-content video { max-width: 100%; max-height: 90vh; border-radius: 16px; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 30px 90px rgba(0,0,0,0.8); object-fit: contain; background: #000; }
+.lightbox-close, .lightbox-prev, .lightbox-next { position: absolute; background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s ease; z-index: 10001; }
+.lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover { background: rgba(255,255,255,0.2); transform: scale(1.1); }
+.lightbox-close { top: 20px; right: 20px; width: 44px; height: 44px; }
+.lightbox-prev, .lightbox-next { top: 50%; transform: translateY(-50%); width: 50px; height: 50px; font-size: 24px; }
+.lightbox-prev { left: 30px; } .lightbox-next { right: 30px; }
+#lightbox-img, #lightbox-video { display: none; }
+
+/* ========================================= */
+/* INTRO Y GLOBALES                          */
+/* ========================================= */
 body:not(.entered):not(.morphing) { background: #fff; color: #111; overflow: hidden; }
 body:not(.entered):not(.morphing) .stars { opacity: 0; }
 .intro { position: fixed; inset: 0; z-index: 5000; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 15vh; background: transparent; }
-.intro-inner { text-align: center; display: flex; flex-direction: column; align-items: center; z-index: 2; }
+.intro-inner { text-align: center; display: flex; flex-direction: column; align-items: center; z-index: 10000; position: relative;}
 .intro-name { font-family: ui-serif, Georgia, "Times New Roman", serif; font-size: clamp(34px, 6vw, 70px); letter-spacing: .5px; color: #111; margin-bottom: 16px; transition: opacity 0.3s ease; }
 body.morphing { background: #000; color: #fff; overflow: hidden; }
 body.morphing .stars { opacity: 0.7; }
@@ -272,356 +289,80 @@ body.entered .nav > * { animation: fadeNavText 0.5s ease forwards; }
 body.entered main.wrap { opacity: 1; transform: translateY(0); clip-path: inset(0% 0 0 0); }
 @keyframes fadeNavText { 0% { opacity: 0; } 100% { opacity: 1; } }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .grid{grid-template-columns:1fr}
-  .two-col{grid-template-columns:1fr !important; gap: 18px !important; align-items: start !important;}
-  .soft-grid{grid-template-columns:1fr}
-  .contact{flex-direction:column; align-items:flex-start}
-  #recorrido{ --dotSize: 70px; --dotLeft: -78px; --padLeft: 46px; }
-  .photo-box{ order: 1; margin: 0 auto; }
-  .about-right{ order: 2; max-width: 100% !important; }
-  .h2{ text-align: center; margin-bottom: 14px; }
-  .panel{ max-width: 100% !important; border-radius: 22px; }
+.floating-card { animation: float 6s ease-in-out infinite; transition: transform 0.3s ease, filter 0.3s ease; }
+.floating-card:hover { animation-play-state: paused; transform: scale(1.05); filter: brightness(1.1); }
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-12px); } 100% { transform: translateY(0px); } }
 
-  .about-two-col { grid-template-columns: 1fr; gap: 32px; }
-  .about-text { text-align: center; }
-
-  .pc-orbit-system { width: 230px; height: 230px; }
-  .pc-orbit-system .photo-circle { width: 160px !important; height: 160px !important; }
-  .social-icon-link { width: 64px; height: 64px; margin-top: calc(-115px - 32px); margin-left: -32px; }
-
-  #video .track{ animation-duration: 34s; }
-  .vcard{ width: 260px; height: 190px; }
-  .vcard.mk-card { height: 220px; }
-
-  .modal { padding: 12px; } 
-  .modal-card { padding: 24px; }
-  .modal-x { top: -10px; right: -6px; width: 38px; height: 38px; }
-  .modal-grid { grid-template-columns: 1fr; gap: 24px; }
-  .modal-right { border-left: 0; padding-left: 0; max-height: 50vh; display: flex; flex-direction: column; }
-  .modal-right video:nth-child(even), .modal-right img:nth-child(even), .modal-right iframe:nth-child(even) { margin-top: 0; }
-}
-/* Animación de flotación para las tarjetas */
-.floating-card {
-  animation: float 6s ease-in-out infinite;
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-.floating-card:hover {
-  animation-play-state: paused;
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-12px); }
-  100% { transform: translateY(0px); }
-}
-
-/* Grilla de trabajos */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
-}
-
-/* Filtros */
-.filter-header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-.filter-btn {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: white;
-  padding: 8px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
+.filter-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+.filter-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 8px 15px; border-radius: 20px; cursor: pointer; transition: 0.3s; }
 .filter-btn:hover { background: rgba(255,255,255,0.2); }
-.filter-panel {
-  display: none; /* Se oculta por defecto */
-  background: rgba(0,0,0,0.8);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
+.filter-panel { display: none; background: rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 15px; }
 .filter-panel.hidden { display: none; }
 
-/* Cambios en el Modal */
-.modal-title {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-.modal-tags-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-.modal-tag-btn {
-  background: transparent;
-  border: 1px solid var(--theme-color, #419c91);
-  color: var(--theme-color, #419c91);
-  padding: 5px 12px;
-  border-radius: 15px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.modal-tag-btn.active {
-  background: var(--theme-color, #419c91);
-  /* Usamos otra variable para el texto, para que no quede blanco sobre blanco */
-  color: var(--tag-text-color, #000); 
-}
-.modal-desc {
-  max-height: 40vh; /* Tope de altura */
-  overflow-y: auto; /* Scroll interno si el texto es largo */
-  padding-right: 10px;
-  text-align: justify;
-}
+.modal-tags-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+.modal-tag-btn { background: transparent; border: 1px solid var(--theme-color, #419c91); color: var(--theme-color, #419c91); padding: 5px 12px; border-radius: 15px; font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease; }
+.modal-tag-btn.active { background: var(--theme-color, #419c91); color: var(--tag-text-color, #000); }
 
-/* Asegura que el botón y el nombre estén por encima de los puntitos */
-.intro-inner {
-  position: relative;
-  z-index: 10000; /* Un número bien alto */
-}
-
-/* Ajuste opcional para el botón */
-.intro-btn {
-  /* Si querés que el botón tenga un fondo sólido para tapar los puntos */
-  background-color: var(--bg-color); 
-  /* O podés dejarlo transparente si te gusta que se vean a través */
-}
-
-/* ========================================= */
-/* SISTEMA MULTILINGÜE Y BOTONES INTRO       */
-/* ========================================= */
-.intro-buttons {
-  display: flex;
-  gap: 20px;
-  position: relative;
-  z-index: 10000;
-}
-
-/* Ocultar los idiomas que no están activos */
+.intro-buttons { display: flex; gap: 20px; position: relative; z-index: 10000; }
 body.lang-es .fr, body.lang-es .en { display: none !important; }
 body.lang-fr .es, body.lang-fr .en { display: none !important; }
-body.lang-en .es, body.lang-en .fr { display: none !important; } /* <-- ¡Esta es la línea que faltaba! */
+body.lang-en .es, body.lang-en .fr { display: none !important; }
 
-/* ========================================= */
-/* PARCHE MOBILE DEFINITIVO V3               */
-/* ========================================= */
-
-/* 1. Tarjetas al 100% para no dejar huecos a la derecha */
-.vcard { 
-  width: 100% !important; 
-}
-
+/* RESPONSIVE CELULARES */
 @media (max-width: 900px) {
-  /* 2. Nav Bar: 3 bloques perfectos y simétricos */
-  .nav { 
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important; 
-    padding: 6px !important; 
-    gap: 4px !important; 
-  }
-  /* Dividimos la barra exactamente en 3 tercios iguales (33.3%) */
-  .nav > .nav-group, 
-  .nav > a.pill.nav-link, 
-  .nav > a.pill.cta {
-    flex: 1 1 0 !important; 
-    min-width: 0 !important; /* Clave para que ningún botón aplaste al otro */
-    margin: 0 !important;
-    display: flex !important;
-  }
-  /* Centramos el texto dentro de cada pastilla y ajustamos tamaño */
-  .nav .pill {
-    flex: 1 !important;
-    width: 100% !important;
-    text-align: center !important;
-    font-size: 13px !important; 
-    padding: 10px 0 !important; 
-    letter-spacing: -0.3px !important; 
-    white-space: nowrap !important;
-    justify-content: center !important;
-    align-items: center !important;
-    display: flex !important;
-  }
-  .nav > a.pill.cta {
-    border-radius: 20px !important;
-  }
-
-  /* 3. Separar Título "Sobre mí" de tu nombre */
-  .about-left { 
-    margin-top: 25px !important; 
-  }
-  .section-header { 
-    margin-bottom: 35px !important; 
-  }
-
-  /* 4. Alinear Recorrido al borde de la pantalla */
-  #recorrido { 
-    --dotSize: 56px !important; 
-    --dotLeft: -65px !important; 
-    --padLeft: 65px !important; 
-  }
-
-  /* 5. Grilla: Una sola columna */
-  .portfolio-grid { 
-    grid-template-columns: 1fr !important; 
-    gap: 20px !important;
-  }
-  .vcard { 
-    height: 220px !important; 
-  }
-
-  /* 6. Arreglar Modal en celulares para que no sea gigante */
-  .modal { 
-    padding: 15px !important; 
-  }
-  .modal-card { 
-    padding: 45px 20px 20px !important; 
-    max-height: 85vh !important; 
-    overflow: hidden !important; 
-  }
-  .modal-x { 
-    top: 10px !important; 
-    right: 10px !important; 
-    width: 36px !important; 
-    height: 36px !important; 
-    background: #111 !important; 
-    z-index: 9999 !important;
-  }
-  .modal-grid { 
-    display: flex !important; 
-    flex-direction: column !important; 
-    gap: 20px !important; 
-    max-height: calc(85vh - 65px) !important; 
-    overflow-y: auto !important; 
-    padding-right: 5px !important; 
-  }
-  .modal-right { 
-    max-height: none !important; 
-    overflow: visible !important; 
-  }
+  main.wrap { padding-top: 60px; }
+  .about-two-col { grid-template-columns: 1fr; gap: 20px; }
+  .about-left { margin-top: 10px; }
+  .pc-orbit-system { width: 230px; height: 230px; margin-bottom: 40px !important; }
+  .pc-orbit-system .photo-circle { width: 160px !important; height: 160px !important; }
+  .social-icon-link { width: 64px; height: 64px; margin-top: calc(-115px - 32px); margin-left: -32px; }
+  .about-name { font-size: 32px; text-align: center; position: relative; z-index: 10;}
+  .about-email { position: relative; z-index: 10; }
+  .about-text { text-align: center; font-size: 16px; margin-top: 15px; }
   
-  /* 7. Cortina de animación adaptada al celular */
-  .nav-curtain { 
-    width: 100% !important; 
-    left: 0 !important; 
-  }
-}
+  .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
+  .vcard { width: 100% !important; height: 220px !important; }
 
-/* 8. Recorrido: Cortar la línea blanca exactamente en Santa Paula */
-/* Lo hacemos colgando una línea negra del último circulito, sin tocar los textos */
-.t-item:last-child .dot::after {
-  content: "";
-  position: absolute;
-  top: 100%; /* Arranca exactamente donde termina el logo de Santa Paula */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15px; /* Ancho suficiente para tapar la línea blanca */
-  height: 1000px; /* Se estira al infinito hacia abajo tapando lo que sobre */
-  background: #000; /* Fondo negro que camufla */
-  z-index: 10;
-}
+  .nav { padding: 6px; gap: 4px; flex-wrap: nowrap; }
+  .nav .pill { font-size: 13px; padding: 10px 0; flex: 1; text-align: center; justify-content: center; }
+  .nav-group { flex: 1; display: flex; }
+  .nav-dropdown { width: 160px; }
 
-/* ========================================= */
-/* ELIMINADOR DE LÍNEA FANTASMA SANTA PAULA  */
-/* ========================================= */
-.timeline .t-item:last-child {
-  position: relative !important; 
-}
-
-.timeline .t-item:last-child::before {
-  content: "" !important;
-  position: absolute !important;
-  /* El parche empieza exactamente donde termina la foto */
-  top: var(--dotSize) !important; 
-  bottom: -100px !important; /* Se estira hacia abajo tapando la línea */
-  /* Se alinea perfecto con el centro de la línea de puntos */
-  left: calc(var(--dotLeft) + (var(--dotSize) / 2) - 10px) !important;
-  width: 20px !important;
-  background: #000 !important; /* Parche negro puro */
-  z-index: 0 !important;
-}
-
-.timeline .t-item:last-child .dot {
-  z-index: 2 !important; /* Asegura que la foto quede arriba del parche */
-}
-
-/* 1. AJUSTE PERFECTO DE ESPACIOS (SOBRE MÍ - CELULAR) */
-@media (max-width: 900px) {
-  /* Espacio exacto para que el ícono no toque el texto (35px, no 95px) */
-  .pc-orbit-system {
-    margin-bottom: 35px !important; 
-  }
+  #recorrido { --dotSize: 56px; --dotLeft: -65px; --padLeft: 65px; }
   
-  /* Sube tu nombre y la foto más cerca del título */
-  .about-left {
-    margin-top: 5px !important;
-  }
-
-  /* Acerca muchísimo el texto descriptivo ("Licenciado en...") a tu mail */
-  .about-two-col {
-    gap: 15px !important; 
-  }
+  .modal { padding: 10px; }
+  .modal-card { padding: 45px 15px 15px; max-height: 85vh; }
+  .modal-x { top: 10px; right: 10px; width: 36px; height: 36px; }
+  .modal-grid { grid-template-columns: 1fr; display: flex; flex-direction: column; gap: 15px; max-height: calc(85vh - 60px); overflow-y: auto; }
+  .modal-left { order: 1; }
+  .modal-right { order: 2; border-left: 0; padding-left: 0; grid-template-columns: 1fr; max-height: none; overflow: visible; }
+  .modal-right > video:nth-child(even), .modal-right > img:nth-child(even), .modal-right > iframe:nth-child(even) { margin-top: 0; }
   
-  .about-name, .about-email {
-    position: relative;
-    z-index: 10; 
-  }
+  .lightbox-prev, .lightbox-next { width: 40px; height: 40px; font-size: 18px; }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+}
+/* Fuerza a que los carruseles ocupen todo el ancho y no se superpongan */
+.modal-right .modal-carousel-wrapper {
+  grid-column: 1 / -1 !important; /* Ocupa las dos columnas */
+  margin-bottom: 30px !important; /* Espacio con el siguiente elemento */
+  clear: both;
 }
 
-/* ========================================= */
-/* SOLUCIÓN MATEMÁTICA (RECORRIDO Y ÓRBITA)  */
-/* ========================================= */
-
-/* 1. SEPARAMOS LA ÓRBITA DEL TEXTO EN CELULARES */
-@media (max-width: 900px) {
-  .pc-orbit-system {
-    /* Le damos casi 100px de aire abajo para que los íconos giren libres */
-    margin-bottom: 95px !important; 
-  }
-  .about-name, .about-email {
-    position: relative;
-    z-index: 10; /* Asegura que el texto siempre quede por encima */
-  }
+/* Para que las imágenes sueltas de abajo no se peguen */
+.modal-right > img:not(.modal-carousel-wrapper img) {
+  margin-top: 10px !important;
+}
+/* Solo separamos los bloques de carruseles entre sí */
+.modal-right .modal-carousel-wrapper {
+  grid-column: 1 / -1 !important; /* Ocupa todo el ancho */
+  margin-bottom: 80px !important; /* El espacio que faltaba para que no se vea "como la cola" */
+  margin-top: 0 !important; /* Evita que el escalonado de la grilla los mueva */
 }
 
-/* 2. MATAMOS LA LÍNEA GIGANTE VIEJA */
-#recorrido .timeline::before {
-  display: none !important;
-}
-
-/* 3. DIBUJAMOS LÍNEAS EXACTAS (EXCEPTO EN SANTA PAULA) */
-.timeline .t-item {
-  position: relative !important;
-  z-index: 1 !important;
-}
-
-/* Esta regla le dice: "Dibuja una línea en todos, MENOS en el último" */
-.timeline .t-item:not(:last-child)::before {
-  content: "" !important;
-  position: absolute !important;
-  /* Centramos la línea perfecto con la bolita */
-  left: calc(var(--dotLeft) + (var(--dotSize) / 2) - (var(--lineW) / 2)) !important;
-  top: calc(var(--dotSize) / 2) !important;
-  /* La fórmula que calcula la distancia exacta hasta la siguiente bolita */
-  height: calc(100% + 42px) !important; 
-  width: var(--lineW) !important;
-  background: repeating-linear-gradient(to bottom, rgba(255,255,255,.7) 0px, rgba(255,255,255,.7) 6px, transparent 6px, transparent 12px) !important;
-  z-index: -1 !important; 
+/* Dejamos las imágenes sueltas del final tranquilas en su lugar */
+.modal-right > img:not(.modal-carousel-wrapper img),
+.modal-right > video:not(.modal-carousel-wrapper video) {
+  margin-top: 20px !important;
 }
