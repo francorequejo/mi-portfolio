@@ -10,8 +10,17 @@ const obs = new IntersectionObserver((entries) => {
 items.forEach(el => obs.observe(el));
 
 // ----------------------------------------------------
-// 2. LÓGICA DE NAVEGACIÓN SPA Y CORTINA
+// 2. LÓGICA DE NAVEGACIÓN SPA, CORTINA Y HISTORIAL
 // ----------------------------------------------------
+
+// Registrar el estado inicial al cargar la página
+window.addEventListener('load', () => {
+  if (!history.state) {
+    // Guardamos que la página actual es la inicial (intro)
+    history.replaceState({ pageId: 'intro' }, "", "");
+  }
+});
+
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', (e) => {
     const targetAttr = link.getAttribute('href');
@@ -28,16 +37,23 @@ document.querySelectorAll('.nav-link').forEach(link => {
     if (!targetPage) return;
 
     if (currentPage && currentPage.id !== targetPageId) {
+       // GUARDAMOS EN EL HISTORIAL
+       history.pushState({ pageId: targetPageId, sectionId: specificSectionId }, "", `#${targetPageId}`);
+
        document.body.classList.add('transitioning');
+       
        setTimeout(() => {
          currentPage.classList.remove('active');
          targetPage.classList.add('active');
          window.scrollTo(0,0);
+         
          if (specificSectionId) openAccordionAndScroll(specificSectionId);
+         
          document.querySelectorAll('.reveal').forEach(el => {
             el.classList.remove('show');
             obs.unobserve(el);
          });
+
          setTimeout(() => {
             document.body.classList.remove('transitioning'); 
             document.querySelectorAll('.active .reveal').forEach(el => {
@@ -53,6 +69,63 @@ document.querySelectorAll('.nav-link').forEach(link => {
        }
     }
   });
+});
+
+// ESTA FUNCIÓN MANEJA EL BOTÓN ATRÁS DEL NAVEGADOR
+window.addEventListener('popstate', (event) => {
+  const targetId = (event.state && event.state.pageId) ? event.state.pageId : 'intro';
+  const introEl = document.getElementById("intro");
+
+  // Si el usuario volvió a la pantalla de idiomas (Intro)
+  if (targetId === 'intro') {
+    document.body.classList.remove('entered');
+    if (introEl) introEl.style.display = 'flex';
+    window.scrollTo(0, 0);
+    return; // Cortamos acá porque no hay que cargar vistas
+  }
+
+  // Si vamos hacia adelante desde la Intro (con el botón Adelante del navegador)
+  if (!document.body.classList.contains('entered') && targetId !== 'intro') {
+    document.body.classList.add('entered');
+    if (introEl) introEl.style.display = 'none';
+  }
+
+  // Lógica normal para moverse entre "Sobre mí" y "Trabajos"
+  const targetPage = document.getElementById(targetId);
+  const currentPage = document.querySelector('.view-page.active');
+
+  if (targetPage && currentPage && currentPage.id !== targetId) {
+    document.body.classList.add('transitioning');
+    
+    setTimeout(() => {
+      currentPage.classList.remove('active');
+      targetPage.classList.add('active');
+      window.scrollTo(0, 0);
+      
+      if (event.state && event.state.sectionId) {
+        openAccordionAndScroll(event.state.sectionId);
+      }
+      
+      // --- ESTO ES LO QUE FALTABA: Reiniciar las animaciones ---
+      document.querySelectorAll('.reveal').forEach(el => {
+         el.classList.remove('show');
+         obs.unobserve(el);
+      });
+
+      setTimeout(() => {
+        document.body.classList.remove('transitioning');
+        // Volver a observar para que aparezcan de forma fluida
+        document.querySelectorAll('.active .reveal').forEach(el => {
+           obs.observe(el);
+        });
+      }, 100);
+      // ---------------------------------------------------------
+      
+    }, 650);
+  } else if (event.state && event.state.sectionId) {
+    // Si estamos en la misma página pero volvió a una sub-sección (ej. Software)
+    openAccordionAndScroll(event.state.sectionId);
+  }
 });
 
 function openAccordionAndScroll(sectionId) {
@@ -114,7 +187,7 @@ if (!lightbox) {
   lightbox.innerHTML = `
     <button class="lightbox-close" type="button">✕</button>
     <div class="lightbox-content">
-      <img id="lightbox-img" src="" alt="Galería ampliada">
+      <img id="lightbox-img" src=\"\" alt=\"Galería ampliada\">
       <video id="lightbox-video" controls autoplay muted loop playsinline></video>
     </div>
     <button class="lightbox-prev" type="button">&#10094;</button>
@@ -253,7 +326,6 @@ function renderModalMedia(mediaString) {
        const urlsStr = chunk.replace(/\[CAROUSEL(-REV)?\]/, "");
        const urls = urlsStr.split("|").map(u => u.trim()); 
        
-       // Solo agregamos la clase para que el CSS de arriba sepa a quién separar
       const wrapper = document.createElement("div");
       wrapper.className = "modal-carousel-wrapper horizontal-media";
        wrapper.style.transitionDelay = `${0.2 + (index * 0.1)}s`;
@@ -270,18 +342,14 @@ function renderModalMedia(mediaString) {
 
        allItems.forEach((u, itemIndex) => {
           let el = createSingleMedia(u, false);
-          
           const box = document.createElement("div");
-          // Volvemos al margen original de 20px que tenías
           box.style.cssText = "display: inline-block; height: 250px; margin-right: 20px; vertical-align: middle;";
           
           const tagName = el.tagName;
           if (tagName === 'IMG' || tagName === 'VIDEO') {
-            // SI ES IMAGEN (Caso Santa Paula): Le ponemos el fix de tamaño
             if (tagName === 'IMG') {
                el.style.cssText = "display: block; height: 100%; width: 200px; object-fit: cover; border-radius: 12px; cursor: zoom-in;";
             } 
-            // SI ES VIDEO (Tus otros trabajos): Lo dejamos tal cual lo tenías originalmente
             else {
                el.style.cssText = "display: block; height: 100%; width: auto; max-width: 80vw; border-radius: 12px; cursor: zoom-in;";
             }
@@ -360,10 +428,7 @@ function openModal(btnElem) {
       btn.addEventListener("click", () => {
         mTagsContainer.querySelectorAll(".modal-tag-btn").forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
-        
-        // LE AVISA AL CSS QUE ESTAMOS EN COPYWRITING PARA CAMBIAR EL DISEÑO
         mVideos.className = "modal-right tag-" + tag;
-        
         renderModalMedia(btnElem.getAttribute("data-" + tag));
       });
       mTagsContainer.appendChild(btn);
@@ -423,20 +488,15 @@ const navSticky = document.querySelector(".nav-sticky");
 function playMorphAnimation(btnElement) {
   if (!btnElement || !nav || !navSticky || document.body.classList.contains("morphing")) return;
   document.body.classList.add("morphing");
-  
   const btnRect = btnElement.getBoundingClientRect();
   navSticky.style.opacity = "0.01"; const destRect = nav.getBoundingClientRect(); navSticky.style.opacity = ""; 
-  
   const pill = document.createElement("div"); pill.classList.add("morph-pill"); document.body.appendChild(pill);
   pill.style.setProperty("--x", `${btnRect.left}px`); pill.style.setProperty("--y", `${btnRect.top}px`);
   pill.style.setProperty("--w", `${btnRect.width}px`); pill.style.setProperty("--h", `${btnRect.height}px`);
   pill.getBoundingClientRect(); 
-  
   const easeExpand = "cubic-bezier(0.25, 1, 0.5, 1)";
   pill.style.transition = `width 0.5s ${easeExpand}, height 0.5s ${easeExpand}, left 0.5s ${easeExpand}`;
-  pill.style.setProperty("--w", `${destRect.width}px`); 
-  pill.style.setProperty("--h", `${destRect.height}px`); 
-  pill.style.setProperty("--x", `${destRect.left}px`); 
+  pill.style.setProperty("--w", `${destRect.width}px`); pill.style.setProperty("--h", `${destRect.height}px`); pill.style.setProperty("--x", `${destRect.left}px`); 
   
   pill.addEventListener("transitionend", function phase1End(e) {
     if (e.propertyName !== "width") return; pill.removeEventListener("transitionend", phase1End);
@@ -447,7 +507,8 @@ function playMorphAnimation(btnElement) {
     pill.addEventListener("transitionend", function phase2End(e) {
       if (e.propertyName !== "top") return; pill.removeEventListener("transitionend", phase2End);
       document.body.classList.remove("morphing"); document.body.classList.remove("revealing"); document.body.classList.add("entered");
-      pill.remove(); if (intro) intro.remove();
+      pill.remove(); 
+      if (intro) intro.style.display = 'none'; 
     });
   });
 }
@@ -456,6 +517,7 @@ langBtns.forEach(btn => {
   btn.addEventListener("click", () => {
     const lang = btn.getAttribute("data-lang");
     document.body.className = ""; document.body.classList.add("lang-" + lang);
+    history.pushState({ pageId: 'view-about' }, "", "#view-about");
     playMorphAnimation(btn);
   });
 });
@@ -465,7 +527,6 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { const btnEs = document.querySelector('[data-lang="es"]'); if (btnEs) btnEs.click(); } 
   } 
 });
-
 
 // ----------------------------------------------------
 // 7. SISTEMA DE PARTÍCULAS MAGNÉTICAS 

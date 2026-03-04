@@ -128,6 +128,7 @@ main.wrap { padding-top: 80px; }
 }
 
 .dot{ position:absolute; left: var(--dotLeft); top: 0px; width: var(--dotSize); height: var(--dotSize); border-radius: 999px; background: #fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+
 .dot img{ width:100%; height:100%; object-fit: contain; padding: 10px; }
 .t-content h4 { margin:0; font-size:18px; letter-spacing:.6px; color: #ffffff !important; }
 .t-content h4 span:not([class]) { color:#ffffff !important; font-weight:700 !important; }
@@ -343,26 +344,29 @@ body.lang-en .es, body.lang-en .fr { display: none !important; }
   .lightbox-prev { left: 10px; }
   .lightbox-next { right: 10px; }
 }
-/* Fuerza a que los carruseles ocupen todo el ancho y no se superpongan */
+/* --- CARRUSELES Y MULTIMEDIA REPARADOS --- */
 .modal-right .modal-carousel-wrapper {
-  grid-column: 1 / -1 !important; /* Ocupa las dos columnas */
-  margin-bottom: 30px !important; /* Espacio con el siguiente elemento */
+  grid-column: 1 / -1 !important; /* Ocupa todo el ancho */
+  display: block !important;
+  height: 270px !important; /* ¡CLAVE! Fija el alto (250px de foto + 20px de padding) para que nunca más se superpongan */
+  margin-top: 0 !important; 
+  margin-bottom: 12px !important; /* El espacio bien pequeñito entre carruseles (funciona en PC y Celular) */
   clear: both;
 }
 
-/* Para que las imágenes sueltas de abajo no se peguen */
-.modal-right > img:not(.modal-carousel-wrapper img) {
-  margin-top: 10px !important;
-}
-/* Solo separamos los bloques de carruseles entre sí */
-.modal-right .modal-carousel-wrapper {
-  grid-column: 1 / -1 !important; /* Ocupa todo el ancho */
-  margin-bottom: 80px !important; /* El espacio que faltaba para que no se vea "como la cola" */
-  margin-top: 0 !important; /* Evita que el escalonado de la grilla los mueva */
-}
-
-/* Dejamos las imágenes sueltas del final tranquilas en su lugar */
+/* Dejamos las imágenes y videos sueltos con un aire normal para que no se peguen */
 .modal-right > img:not(.modal-carousel-wrapper img),
 .modal-right > video:not(.modal-carousel-wrapper video) {
-  margin-top: 20px !important;
+  margin-top: 15px !important; 
+}
+
+/* Quitar borde blanco SOLO a ODSA y Mazalán */
+.dot:has(img[src*="odsa"]),
+.dot:has(img[src*="mazalan"]) {
+  background: transparent !important;
+}
+
+.dot:has(img[src*="odsa"]) img,
+.dot:has(img[src*="mazalan"]) img {
+  padding: 0 !important;
 }
